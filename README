@@ -1,0 +1,39 @@
+SpiFPGA is a project to make a kernel module to expose
+the memory on an FPGA device as a char driver file.
+
+Compile Instructions (based on http://sandsoftwaresound.net/raspberry-pi/build-a-kernel-module/):
+
+1. You'll need kernel headers for your chosen OS. Sometimes on RPi it's easiest to just grab the whole kernel source. E.g., for kernel rpi-3.12.XX+
+
+cd /usr/src
+wget https://github.com/raspberrypi/linux/archive/rpi-3.12.y.tar.gz
+tar -xzf rpi-3.12.y.tar.gz
+mv linux-rpi-3.12.y linux
+
+2. Link the build directory to the source.
+
+ln -s /usr/src/linux /lib/modules/3.12.28+/build
+ln -s /usr/src/linux /lib/modules/3.12.28+/src
+
+3. Prepare the source tree to uild modules
+
+cd /lib/modules/3.12.28+/build
+make mrproper
+gzip -dc /proc/config.gz > .config
+make modules_prepare
+
+4. Get the module version info
+
+wget https://github.com/raspberrypi/firmware/raw/master/extra/Module.symvers
+
+5. Generate the module dependencies
+
+depmod -a
+
+6. Compile the module
+
+cd <wherever you checked out this repository>
+make
+
+
+
