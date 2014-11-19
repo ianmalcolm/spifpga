@@ -35,5 +35,12 @@ depmod -a
 cd <wherever you checked out this repository>
 make
 
+== To run on a Raspberry Pi ==
+
+1. Make sure the spi drivers are not blacklisted. Comment out any reference to them in /etc/modprobe/raspi-blacklist.conf
+
+2. Reboot (if you changed the blacklist)
+
+3. At this point, you should see spi devices in /dev
 
 
