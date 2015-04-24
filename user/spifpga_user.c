@@ -157,7 +157,7 @@ int bulk_read(int fd, unsigned int start_addr, unsigned int n_bytes, unsigned in
         for (m=0, fresp_loop=fresp, buf_loop=buf; m<n_trans_per_buf; m++, fresp_loop++, buf_loop++)
         {
             //memcpy(buf + (rx_word_cnt++), &fresp_loop->dout, sizeof(unsigned int));
-            printf("readback value fresp_loop->dout: %u\n", fresp_loop->dout);
+            //printf("readback value fresp_loop->dout: %u\n", fresp_loop->dout);
             *(buf + rx_word_cnt) = fresp_loop->dout;
             fpga_ret = fpga_ret | fresp_loop->resp;
             if (++rx_word_cnt == n_transfers)
