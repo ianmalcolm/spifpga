@@ -19,32 +19,39 @@ int main()
     int i=0, err_cnt=0;
     unsigned int *val, *wr_buf, *rd_buf;
 
+    unsigned int readval;
+    ret = write_word(fd, 0x00017108, 16);
+    printf("write response was %u\n", ret);
+    ret = read_word(fd, 0x00017108, &readval);
+    printf("read response was %u\n", ret);
+    printf("read val was %u\n", readval);
+
     int ntrials=1024;
 
-    //val = malloc(sizeof(unsigned int));
-    //for (i=0; i<ntrials; i++)
-    //{
-    //    ret = bulk_write(fd, 0x00010004+4*i, 4, &i);
-    //    if (ret != 143)
-    //    {
-    //        printf("write response was %u\n", ret);
-    //    }
-    //    ret = bulk_read(fd, 0x00010004+4*i, 4, val);
-    //    if (ret != 143)
-    //    {
-    //        printf("read response was %u\n", ret);
-    //    }
-    //    
-    //    if (*val != i)
-    //    {
-    //        printf("Read does not match write! (r:%u vs w:%u)\n", *val, i);
-    //        err_cnt++;
-    //    }
-    //}
+    val = malloc(sizeof(unsigned int));
+    for (i=0; i<ntrials; i++)
+    {
+        ret = write_word(fd, 0x00010004+4*i, i);
+        if (ret != 143)
+        {
+            printf("write response was %u\n", ret);
+        }
+        ret = read_word(fd, 0x00010004+4*i, val);
+        if (ret != 143)
+        {
+            printf("read response was %u\n", ret);
+        }
+        
+        if (*val != i)
+        {
+            printf("Read does not match write! (r:%u vs w:%u)\n", *val, i);
+            err_cnt++;
+        }
+    }
 
-    //printf("Errors after %d single writes: %d\n", i, err_cnt);
+    printf("Errors after %d single writes: %d\n", i, err_cnt);
 
-    //free(val);
+    free(val);
 
     printf("Trying bulk read of %d words\n", ntrials);
     wr_buf = calloc(ntrials, sizeof(unsigned int));
