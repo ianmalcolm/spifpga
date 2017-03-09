@@ -30,7 +30,7 @@ int write_word(int fd, unsigned int addr, unsigned int val)
 
     struct fpga_spi_cmd *fcmd;
     struct fpga_spi_cmd *fresp;
-    int spidev_ret, fpga_ret;
+    int spidev_ret, fpga_ret=0;
 
     fcmd = malloc(sizeof(struct fpga_spi_cmd));
     if (!fcmd)
@@ -83,7 +83,7 @@ int bulk_read(int fd, unsigned int start_addr, unsigned int n_bytes, unsigned in
 
     struct fpga_spi_cmd *fcmd, *fcmd_loop, *fresp, *fresp_loop;
     struct spi_ioc_transfer *tr, *tr_loop;
-    int spidev_ret, fpga_ret;
+    int spidev_ret, fpga_ret=0;
     unsigned int *buf_loop;
 
     int n_transfers = (n_bytes + BYTES_PER_WORD - 1) / BYTES_PER_WORD;
@@ -178,7 +178,7 @@ int bulk_write(int fd, unsigned int start_addr, unsigned int n_bytes, unsigned i
 
     struct fpga_spi_cmd *fcmd, *fcmd_loop, *fresp, *fresp_loop;
     struct spi_ioc_transfer *tr, *tr_loop;
-    int spidev_ret, fpga_ret;
+    int spidev_ret, fpga_ret=0;
     unsigned int *buf_loop;
 
     int n_transfers = (n_bytes + BYTES_PER_WORD - 1) / BYTES_PER_WORD;
@@ -271,7 +271,7 @@ int read_word(int fd, unsigned int addr, unsigned int *val)
 
     struct fpga_spi_cmd *fcmd;
     struct fpga_spi_cmd *fresp;
-    int spidev_ret, fpga_ret;
+    int spidev_ret, fpga_ret=0;
 
     fcmd = malloc(sizeof(struct fpga_spi_cmd));
     if (!fcmd)
