@@ -24,7 +24,7 @@ CMD_START = 1 << 7
 CMD_STOP = 1 << 6
 CMD_READ = 1 << 5
 CMD_WRITE = 1 << 4
-CMD_ACK = 1 << 3
+CMD_NACK = 1 << 3
 CMD_IACK = 1 << 0
 
 CORE_EN = 1 << 7 # i2c core enable
@@ -36,7 +36,7 @@ READ_BIT = 1
 LED0_ADDR = 0x21
 LED1_ADDR = 0x20
 TEMP_ADDR = 0x40
-ID0_ADDR = 0x49
+ID0_ADDR = 0x51
 ID1_ADDR = 0x50
 
 def read(addr):

@@ -15,33 +15,21 @@ print "Write addr to transmit register TXR ...\n"
 write(TXR_ADDR_W, (TEMP_ADDR << 1) + WRITE_BIT)
 
 print("Write to command register...\n")
-write(CR_ADDR_W,CMD_WRITE)
+write(CR_ADDR_W,CMD_START|CMD_WRITE)
 
-#print "Read status register...\n"
-#read(SR_ADDR)
-
-print "Write payload 0b10101010"
+print "Write payload 0xe3"
 write(TXR_ADDR_W,0xe3)
 
 print("Write to command register...\n")
-write(CR_ADDR_W,CMD_WRITE)
-
-#print "Read status register...\n"
-#read(SR_ADDR)
-
-print("Write to command register...\n")
-write(CR_ADDR_W,CMD_STOP)
+write(CR_ADDR_W,CMD_WRITE|CMD_STOP)
 
 #############################################################
-
-print("Write to command register...\n")
-write(CR_ADDR_W,CMD_START)
 
 print "Write addr to transmit register TXR ...\n"
 write(TXR_ADDR_W, (TEMP_ADDR << 1) + READ_BIT)
 
 print("Write to command register...\n")
-write(CR_ADDR_W,CMD_WRITE)
+write(CR_ADDR_W,CMD_START|CMD_WRITE)
 
 print("Write to command register...\n")
 write(CR_ADDR_W,CMD_READ)
@@ -52,11 +40,6 @@ write(CR_ADDR_W,CMD_READ)
 read(RXR_ADDR)
 
 print("Write to command register...\n")
-write(CR_ADDR_W,CMD_READ)
+write(CR_ADDR_W,CMD_READ|CMD_NACK|CMD_STOP)
 read(RXR_ADDR)
-
-print("Write to command register...\n")
-write(CR_ADDR_W,CMD_STOP)
-
-
 
