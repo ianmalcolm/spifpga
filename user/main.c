@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 }
 
 void help(){
-	printf ("SPI command line tool for HERA project.\n");
+	printf ("SPI command line tool for Jasper workflow.\n");
 	printf ("Usage:\n");
 	printf ("\tSPI read: spifpga_user -a addr -r\n");
 	printf ("\tSPI write: spifpga_user -a addr -w data\n");

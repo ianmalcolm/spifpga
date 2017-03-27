@@ -1,5 +1,4 @@
 import os
-import time
 
 I2C_BASE_ADDR = 0x00010000
 
@@ -32,12 +31,6 @@ INT_EN = 1 << 6 # interrupt enable
 
 WRITE_BIT = 0
 READ_BIT = 1
-
-LED0_ADDR = 0x21
-LED1_ADDR = 0x20
-TEMP_ADDR = 0x40
-ID0_ADDR = 0x51
-ID1_ADDR = 0x50
 
 def read(addr):
     cmd = "./spifpga_user -a 0x%x -r" % (I2C_BASE_ADDR + addr)
