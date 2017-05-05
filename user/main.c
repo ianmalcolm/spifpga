@@ -15,16 +15,16 @@ int main(int argc, char **argv)
 	bool addrFlag=false;
 	unsigned int addr = 0;
 	unsigned int data[100],*pdata;
-	int length = 4;
+	int length = 1;
 	int index;
 	int c;
-	const char delim = ',';
+	const char delim[2] = ",";
 	char *token;
 
 	opterr = 0;
 	pdata = data;
 
-	while ((c = getopt (argc, argv, "a:rw:c")) != -1)
+	while ((c = getopt (argc, argv, "a:l:rw:c")) != -1)
 		switch (c) {
 			case 'a':
 				addrFlag = true;
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 				length = pdata - data;
 				break;
 			case 'l':
-				if (writeFlag=false) {
+				if (writeFlag==false) {
 					length = strtol(optarg,NULL,0);
 				}
 				break;
@@ -81,6 +81,7 @@ int main(int argc, char **argv)
 		for (index=0; index<length; index++){
 			fprintf(stdout,"0x%x,", data[index]);
 		}
+		fflush(stdout);
 		fprintf(stderr,"\nRead response was %u\n",ret);
 	} else if (writeFlag) {
 		ret = bulk_write(fd, addr, length, data);
@@ -97,12 +98,12 @@ void help(){
 	printf ("Parameters:\n");
 	printf ("\t-a: address\n");
 	printf ("\t-r: read\n");
-	printf ("\t-l: length in byte, default is 4 bytes\n");
+	printf ("\t-l: length in word\n");
 	printf ("\t-w: write, followed by some data\n");
 	printf ("\t    Data are delimited by ','\n");
 	printf ("\t    the cap of data length is 100\n");
 	printf ("\t    -l is ignored when -w and data are presented\n");
 	printf ("Usage:\n");
-	printf ("\tSPI read: spifpga_user -a addr -r\n");
+	printf ("\tSPI read: spifpga_user -a addr -r -l length\n");
 	printf ("\tSPI write: spifpga_user -a addr -w data\n");
 }
